@@ -32,17 +32,25 @@ client.on('ready', () => {
 	console.log('Client is ready!');
    
 	 // Number where you want to send the message.
-	const number = "+573506122944";
+	const numbers = ["+573506122944","+573027490686"];
    
 	 // Your message.
-	const text = "Hey john";
+	const text = "Mensaje de prueba";
    
 	 // Getting chatId from the number.
 	 // we have to delete "+" from the beginning and add "@c.us" at the end of the number.
-	const chatId = number.substring(1) + "@c.us";
+
+	for(let i = 0; i < numbers.length; i++){
+
+		console.log(i);
+
+		const chatId = numbers[i].substring(1) + "@c.us";
    
-	// Sending message.
-	client.sendMessage(chatId, text);
+		// Sending message.
+		client.sendMessage(chatId, text);
+	}
+
+	
    });
 
 client.initialize();
