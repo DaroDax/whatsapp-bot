@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^2.0.15",
     "qrcode-terminal": "^0.12.0",
     "whatsapp-web.js": "^1.15.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
