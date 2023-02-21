@@ -1,17 +1,5 @@
 const qrcode = require('qrcode-terminal');
 const { Client, Buttons, LocalAuth } = require('whatsapp-web.js');
-
-//API
-const cors = require('cors');
-var express = require('express') //llamamos a Express
-var app = express()       
-
-app.use(cors());
-app.use(express.urlencoded({ extended:true }));
-
-var port = process.env.PORT || 8080  // establecemos nuestro puerto
-//API
-
 // Guarda la session para no volver a pedir el QR
 const client = new Client({
     authStrategy: new LocalAuth({ clientId: "1" })
@@ -38,37 +26,6 @@ client.on('disconnected', (reason) => {
 client.on('message', message => {
 	console.log(message.body);
 });
-//Enviar mensajes a numeros 
-client.on('ready', () => {  
-	/* const chatId = '+573027490686'.substring(1) + "@c.us";
-	const text = "Prueba mensaje";
-	client.sendMessage(chatId, text); */
-	listenMessage();	
-});
-
-const listenMessage = () => {
-	client.on('message', (msg) => {
-		const {from, to, body} = msg;
-		console.log(from, to, body);
-
-		//sendMessage(from, 'Respuesta de prueba')
-	});
-}
-
-const sendMessage = (to, message) => {
-	client.sendMessage(to, message);
-}
-///////////////API/////////////////
-const enviarMensaje = (req, res) => {
-	const { message, to } = req.body;
-	const newNumber = `${to}@c.us`;
-	sendMessage(newNumber, message);
-	console.log(message, to);
-	res.send({status: 'Enviado'});
-}
-
-app.post('/send', enviarMensaje);
-//////////////API//////////////////
    
 client.on('message', async (message) => {
     if (message.body === '!ping'){
@@ -87,12 +44,13 @@ client.on('message', async (message) => {
 	}
 });
 
-
-
-//API LISTENER
-// iniciamos nuestro servidor
-app.listen(port)
-console.log('API escuchando en el puerto ' + port)
+//Enviar mensajes a numeros 
+client.on('ready', () => {   
+	const chatId = '+573027490686'.substring(1) + "@c.us";
+	const text = "Prueba mensaje";
+	// Sending message.
+	client.sendMessage(chatId, text);	
+});
 
 
 
